@@ -75,22 +75,13 @@
     ```
     $ sudo chown -R www-data:www-data /var/www/html/prestashop
     ```
-
-6. Edit file `etc/php/7.0/apache2/php.ini` dan tambahkan baris berikut :
-    ```
-    max_execution_time = 200
-    post_max_size = 100M
-    upload_max_size = 100M
-    upload_max_filesize = 20M
-    memory_limit = 256M
-    ```
-
-7. Restart kembali Apache web server.
+    
+6. Restart kembali Apache web server.
     ```
     $ sudo service apache2 restart
     ```
 
-10. Kunjungi alamat IP web server kita untuk meneruskan instalasi.
+7. Kunjungi alamat IP web server kita untuk meneruskan instalasi.
     - Secara *default* dapat mengunjungi `http://localhost:8000/Lychee/`
     
     - Silakan masukan nama *host*, *username*, dan *password* untuk mengakses *database* anda, serta tulis juga nama *database*-nya <br/>
@@ -103,133 +94,96 @@
 # Konfigurasi
 [`^ kembali ke atas ^`](#)
 
-- Untuk menentukan konfigurasi umum, kuota upload, dan pemberitahuan, kita dapat membuka submenu **Administration** pada menu **Advanced Parameters** dan mengisi field sesuai kebutuhan. 
-    
-    ![adv](https://1.bp.blogspot.com/-FVf16Vgl39w/WNgF9uD_R1I/AAAAAAAAGkI/SMY8oR4ZpDwNJAP4te0Ml0xCghuEYwQfQCLcB/s1600/Screenshot_6.jpg)
+- Untuk meningkatkan kinerja dan memastikan aplikasi berjalan lancar, silakan merubah isi file `etc/php/7.0/apache2/php.ini` dan tambahkan baris berikut :
+    ```
+    max_execution_time = 200
+    post_max_size = 100M
+    upload_max_size = 100M
+    upload_max_filesize = 20M
+    memory_limit = 256M
 
-    ![setting](https://1.bp.blogspot.com/-pPGnvOtpH6k/WNgF-bV6TcI/AAAAAAAAGkQ/i4X-qAe2ohcLT18UDAaA5tYDZGrri0nvQCLcB/s1600/ss.png)
+- Agar foto yang dirotasi tidak kehilangan metadata-nya, silakan *install* imagick melalui terminal:
+    ```
+    $ sudo apt-get install php-imagick
+    $ php -m | grep imagick
+    $ sudo service apache2 restart
+    ```
 
-- Untuk melengkapi aplikasi, kita dapat menambahkan fitur atau modul-modul tertentu pada menu `Modules`.
+- Untuk membuat dapat mengupload file dari Dropbox, silakan konfigurasi Dropbox anda melalui tombol gir yang ada di pojok kiri atas,       lalu mengisikan *app key* yang valid dari website Dropbox <br/>
+  ![Konfigurasi Dropbox](Screenshot/lychee3.jpg) <br/>
+  ![Masukkan *app key* yang valid](Screenshot/lychee4.jpg)
 
-    ![modul](https://4.bp.blogspot.com/-6dRdIL2WQGw/WNfs8Ul0KnI/AAAAAAAAGjw/_TmOk2h3mIgRc7Z0Uw1kYLx7bIDaZ-Z4wCLcB/s1600/Screenshot_2.jpg)
-
-- Untuk memperindah aplikasi, kita dapat mengganti tema aplikasi pada menu `Design`.
-
-    ![design](https://4.bp.blogspot.com/-HSXimyvqUVc/WNfs9sGUKnI/AAAAAAAAGj0/l3ZyZX2biuUa05VhnVdwrdFcCxxpGWv0gCLcB/s1600/Screenshot_3.jpg)
+- Silakan mengganti urutan (*sorting*) album dan foto sesuai dengan parameter yang diinginkan
+  ![Konfigurasi *Sorting*](Screenshot/lychee5.jpg) <br/>
+  ![Memilih parameter yang diinginkan](Screenshot/lychee6.jpg)
 
 
 
 # Maintenance
 [`^ kembali ke atas ^`](#)
 
-Ketika kita ingin memodifikasi toko yang sudah terinstall, kita mungkin tidak ingin ada orang lain yang membuka aplikasi kita. Pada saat seperti itu, kita dapat mengkonfigurasi aplikasi kita untuk masuk ke dalam *maintenance mode*. Berikut ini adalah langkah-langkah yang harus kita lakukan :
-1. Login ke dalam admin toko kita.
-2. Klik submenu **General** pada menu **Shop Parameters**.
-
-    ![shop](https://2.bp.blogspot.com/-jD8tqsXFEZU/WNgF9oM9htI/AAAAAAAAGkE/y5imPsRHlC8WE4FWW_4Ypt7B5qldQwGOACLcB/s1600/Screenshot_4.jpg)
-
-3. pilih tab **Maintenance**.
-
-    ![maintenance](https://2.bp.blogspot.com/-nP-fEgmv0Nk/WNgF9liISII/AAAAAAAAGkM/79LNJAoksb0J5dhVSqpo2Q4mZf3G4z-YwCLcB/s1600/Screenshot_5.jpg)
-
-4. Klik tombol `on` atau `off` untuk menjalankan atau mematikan *maintenance mode*.
-5. Jika kita ingin agar teman kita dapat membuka aplikasi saat sedang dalam *maintenance mode*, masukkan **IP Adress** miliknya ke dalam field **Maintenance IP**.
-6. Tuliskan pesan yang ingin kita sampaikan ketika ada orang yang membuka aplikasi kita saat sedang maintenance ke dalam field **Custom Maintenance Text**
-7. Klik tombol **Save** untuk menyimpan perubahan.
+Sebelum melakukan perubahan dan bahkan untuk berjaga-jaga agar foto kita memiliki cadangan, berikut cara yang dapat dilakukan untuk membuat *back up* foto pada Lychee:
+  1. Buat *copy* dari semua folder Lychee
+  2. Jalankan *query* MySQL berikut:
+      ```
+      > CREATE TABLE lychee_albums_backup LIKE lychee_albums;
+      > INSERT INTO lychee_albums_backup SELECT * FROM lychee_albums;
+      > CREATE TABLE lychee_photos_backup LIKE lychee_photos;
+      > INSERT INTO lychee_photos_backup SELECT * FROM lychee_photos;
+      > CREATE TABLE lychee_settings_backup LIKE lychee_settings;
+      > INSERT INTO lychee_settings_backup SELECT * FROM lychee_settings;
+      ```
 
 
 
 # Otomatisasi
 [`^ kembali ke atas ^`](#)
 
-Jika kalian masih merasa kesulitan dalam meng-install **Prestashop**, terdapat dua cara alternatif yang lebih mudah. Cara pertama adalah dengan menggunakan `script shell` yang otomatis akan menjalankan semua perintah instalasi pada terminal. Contoh `script shell` yang dapat kita gunakan adalah [setup.sh](../master/setup.sh)
-
-Cara kedua adalah dengan menggunakan layanan yang tersedia pada *web-hosting provider*. Dengan layanan tersebut kita hanya perlu satu kali klik untuk meng-install **Prestashop**. Berikut langkah-lankah untuk melakukannya :
-1. kita perlu mengunjungi *web-hosting provider* yang menyediakan *script* instalasi **prestashop** otomatis, seperti [SimpleScripts](http://www.simplescripts.com/script_details/install:PrestaShop), [Installatron](http://installatron.com/prestashop), atau [Softaculous](http://www.softaculous.com/apps/ecommerce/PrestaShop).
-2. Sebagai contoh, kita akan menggunakan layanan dari [Installatron](http://installatron.com/prestashop). Kunjungi link tersebut lalu klik tombol **Install this Application**.
-
-    ![Installatron](https://4.bp.blogspot.com/-PGjmovGOoOc/WNgQDHbE1RI/AAAAAAAAGk0/90dTTmH15cY6WSWqr8UU8BPETQs4KyxnACLcB/s1600/Screenshot_8.jpg)
-
-3. Isi semua informasi yang dibutuhkan, lalu klik tombol **Install**.
-
-    ![form](https://4.bp.blogspot.com/-5UwbsHAaBe0/WNgQDDjFdhI/AAAAAAAAGk4/coOLiqqP2DcVxq-hHwFa9cVW3P_t6p1tQCLcB/s1600/ss2.png)
-
-4. Tunggu hingga proses instalasi selesai.
+Jika kalian masih merasa kesulitan dalam meng-install **Lychee**, terdapat cara yang lebih mudah untuk itu, yakni dengan menggunakan `script shell` yang otomatis akan menjalankan semua perintah instalasi pada terminal. Contoh `script shell` yang dapat kita gunakan adalah [shell.sh](../master/shell.sh)
 
 
 
 # Cara Pemakaian
 [`^ kembali ke atas ^`](#)
 
-Cara pemakaian **CMS Prestashop** ini sangat mudah, karena aplikasi ini telah menyediakan *interface* yang mudah dimengerti. Berikut untuk lebih jelasnya :
-1. Sebelum menggunakan prestashop, kita perlu login pada halaman admin toko kita.
-
-    ![login](https://4.bp.blogspot.com/-rmIdzrb4t4E/WOGbktO4p8I/AAAAAAAAGlc/z1NraShhrpUt-4Z0MVfXofZ5IV9hR_XbwCLcB/s1600/presta1.png)
-
-2. Setelah login, kita akan masuk ke halaman *Dashboard*. Disini kita dapat melihat laporan penjualan website kita baik harian, mingguan, bulanan, bahkan tahunan.
-
-    ![mainpage](https://3.bp.blogspot.com/-AjB_6mJZCxc/WOGbk3XPniI/AAAAAAAAGlg/NGZ_vOSF1s4jvw9Yx9jh7odGt8B4qHSuwCLcB/s1600/presta2.png)
-
-3. Pada bagian samping kiri, terdapat berbagai menu yang dapat kita gunakan. Menu **Order** berguna untuk mengetahui informasi lebih detail tentang penjualan pada website kita. Disini kita dapat mencetak *invoices, credit slips, delivery slips*, dan lain-lain.
-
-    ![order](https://1.bp.blogspot.com/-0-MhQjYMGvQ/WOGbkmpYSXI/AAAAAAAAGlY/JSwla_Py4ckrxc839Im9JKtyJjsmye_hQCLcB/s1600/presta3.png)
-
-4. Menu **Catalog** berguna untuk mengetahui informasi lebih detail tentang barang apa saja yang dijual pada website kita, kategori apa saja yang ada, mengawasi stok barang yang tersisa, merek apa saja yang ada, melihat daftar diskon, dan lain-lain.
-
-    ![catalog](https://4.bp.blogspot.com/-PQTBdZzcMBY/WOGblDw9tYI/AAAAAAAAGlk/GDC7cEzfWmo9LZ8bqcqwnv7iilAYlXNhwCLcB/s1600/presta4.png)
-
-5. Menu **Customers** berguna untuk melihat informasi lebih detail tentang daftar pelanggan kita dan alamatnya.
-
-    ![customer](https://2.bp.blogspot.com/-Mtss0c3rblo/WOGblcDU_bI/AAAAAAAAGlo/u1Hv6LWzwtAEuk9_NPQHnedI6PnotkEMwCLcB/s1600/presta5.png)
-
-6. Menu **Customer Service** berguna untuk mengatur hubungan dengan pelanggan, seperti menerima keluhan, mengirim pesan kepada pelanggan, pengembalian barang, dan lain-lain.
-
-    ![cs](https://3.bp.blogspot.com/-ZlT_WQ0bpyk/WOGblYW-yPI/AAAAAAAAGls/gcZb8k36rEUn8dDFnGXl35R_Uhy_lNMeACLcB/s1600/presta6.png)
-
-7. Menu **Stat** berguna untuk melihat informasi lebih detail dari website kita, seperti jumlah pengunjung setiap harinya, lokasi pelanggan terbanyak, barang apa yang populer, dan lain-lain.
-
-    ![stat](https://3.bp.blogspot.com/-kvZ9MMH6Fxc/WOGblsk5jpI/AAAAAAAAGlw/p8LhO5LIvMU4WnDEF5NKg7--tKy8mWa-wCLcB/s1600/presta7.png)
-
-8. Selain menu-menu yang berhubungan dengan penjualan, **Prestashop** juga menyediakan menu untuk meningkatkan performa website kita seperti menu untuk menginstal modul atau plugin, menu untuk memperindah tampilan website, menu untuk mengatur pengiriman dan pembayaran barang, bahkan menu lokalisasi untuk meningkatkan layanan pada region tertentu.
-
-    ![improve](https://3.bp.blogspot.com/-d_DufFiAblk/WOGbls1KYxI/AAAAAAAAGl0/AsyvLt1zp1IP1BG1PbDaG91PJKV-xDkhACLcB/s1600/presta8.png)
-
-9. Selain itu, terdapat juga menu untuk mempermudah konfigurasi website kita baik itu konfigurasi umum maupun konfigurasi lanjut.
-
-    ![configure](https://4.bp.blogspot.com/-58ke7QyDUwQ/WOGbmCZvHFI/AAAAAAAAGl4/LuQRv6uYmywWjbzmJy82UwNu5qCg8fp1gCLcB/s1600/presta9.png)
-
-
+Penggunaan **Lychee** adalah seperti *software* manajemen foto yang biasa kita lakukan di *smartphone*, dan bahkan dapat digunakan dengan lebih mudah, intuitif, dan responsif. Berikut beberapa fitur dasar yang dapat dilakukan:
+1. *Log in* dengan meng-klik tombol `log in` di pojok kiri atas, lalu masukkan *username* dan *password* anda
+2. *Upload* foto dengan tombol '+' yang ada di pojok kanan atas, pilih "*Upload Photo*", lalu pilih foto mana yang akan di-*upload* (bisa lebih dari satu)
+3. Melihat detail foto dengan cara meng-klik foto yang dimaksud, lalu klik simbol `i` yang ada di kanan atas
+4. 
+    
+    
 
 # Pembahasan
 [`^ kembali ke atas ^`](#)
 
-**Prestashop** ditulis dalam bahasa pemrograman `PHP` yang support untuk penggunaan MySQL. Sebagai salah satu CMS yang paling banyak digunakan di dunia, aplikasi ini menawarkan berbagai kelebihan, diantaranya :
-- Aplikasi memiliki panel administrasinya mudah digunakan dan fleksibel, sehingga dapat disesuaikan dengan kebutuhan.
-- Mendukung berbagai layanan pembayaran utama, seperti `PayPal`, `VISA`, `MasterCard`, dan `Maestro`.
-- Diterjemahkan dalam banyak bahasa, termasuk Bahasa Indonesia.
-- Memiliki desain yang *responsive*, sehingga dapat dibuka menggunakan *device* apapun.
-- Memiliki lebih dari tiga ratus fitur untuk memudahkan pengguna.
-- Banyak pengguna yang berkontribusi pada *discussion boards* dan sejenisnya, sehingga masalah yang dihadapi pengguna dapat cepat terselesaikan.
+**Lychee** memberikan pelayanan manajemen foto yang mudah, simpel, dan *lightweight* sebagai alternatif penyimpanan foto lainnya seperti iCloud, Google Photos, dan Piwigo. Secara umum, kelebihan yang dimiliki **Lychee** adalah:
+  - Ringan, sehingga dapat dijalankan dengan mudah pada komputer dengan kemampuan kecil
+  - GUI intuitif yang sangat *user-friendly* sehingga pengguna baru tidak perlu membaca petunjuk penggunaan, karena sebagian besar *taskflow*-nya sama dengan sistem manajemen foto pada umumnya.
+  - Memberikan privasi pada pengguna sehingga dapat mengatur sebuah album atau foto menjadi *private* maupun *public*
+  - Kemudahan mengakses metadata dan mode *display* foto yang menarik
+  - Pemberian 'tag' yang dapat memudahkan pengguna mencari suatu jenis foto tertentu
 
-Tentu saja, sebuah aplikasi pasti memiliki kekurangan. Kekurangan yang dimiliki **Prestashop** antara lain :
-- Penggunaan fitur atau modul yang lengkap menyebakan proses loading dari aplikasi ini menjadi sangat lambat
-- Penggunaan *resource* memory aplikasi ini cukup besar, terutama ketika menggunakan fitur atau modul yang lengkap.
-- Sebagian besar modul dan tema yang tersedia tidak gratis.
+Di sisi lain, aplikasi Lychee juga memiliki kekurangan, antara lain:
+  - Belum mengintegrasi *Google Drive* sebagai salah satu sumber direktori untuk melakukan *upload* foto
+  - Hanya terbatas pada manajemen foto, sehingga tidak memungkinkan untuk menyimpan video
 
-Jika dibandingkan dengan CMS sejenisnya seperti **Microweber**, CMS ini memiliki beberapa keunggulan dan kelemahan. Berikut adalah beberapa perbandingan antara kedua CMS ini :
-- **Microweber** menyediakan proses design yang fleksibel dengan fitur *Drag and Drop* tanpa batasan, sehingga pengguna bebas mengkreasikan tampilan websitenya. Sedangkan **Prestashop** hanya menyediakan fitur design berupa penggantian template dan logo, adapun template yang tersedia tidak gratis.
-- Modul atau plugin yang tersedia pada **Prestashop** jauh lebih banyak dibandingkan pada **Microweber**.
-- **Prestashop** memiliki pengguna yang jauh lebih banyak daripada **Microweber** yang aktif pada forum-forum diskusi untuk membantu pengguna pemula.
-- **Microweber** lebih ringan daripada **Prestashop** karena modulnya yang sedikit.
-- Proses instalasi **Prestashop** lebih mudah karena berbasis PHP saja, sedangkan **Microweber** menggunakan framework laravel sehingga proses instalasi lebih sulit, terutama dalam hal *dependency*.
+Pembanding yang setara dan sering didiskusikan adalah **Piwigo**. Berikut beberapa pendapat kami mengenai kedua software ini:
+- **Piwigo** memiliki nilai tambah dari segi fungsionalitas, namun tampilan aplikasi **Piwigo** sendiri terkesan lama, kurang responsif, dan tidak *user-friendly*
+- Tampilan utama **Lychee** lebih indah dilihat dan memiliki kesan pertama yang baik
+- Meskipun tidak memiliki kolom komentar seperti **Piwigo**, aplikasi **Lychee** tetap memiliki keunggulan karena tujuan utamanya merupakan sebagai manajemen foto yang dapat menampilkan gambar dengan baik.
+- Kami cenderung lebih sulit memahami fungsi-fungsi yang ada di **Piwigo** dikarenakan tampilan UI-nya yang terkesan aneh dan berbeda dengan *software* manajemen foto pada umumnya
 
 
 
 # Referensi
 [`^ kembali ke atas ^`](#)
 
-1. [About PrestaShop](https://www.prestashop.com/) - PrestaShop
-2. [How to Log Into a VPS with PuTTY on Windows](https://www.digitalocean.com/community/tutorials/how-to-log-into-a-vps-with-putty-windows-users) - DigitalOcean
-3. [How to Install PrestaShop on Ubuntu 16.04](http://idroot.net/linux/install-prestashop-ubuntu-16-04/) - idroot
-4. [One Click Install PrestaShop](https://www.prestashop.com/blog/en/how-to-install-prestashop/) - PrestaShop
-5. [PrestaShop Review](http://whichshoppingcart.com/prestashop.html) - whishshoppingcart
+1. [Lychee &mdash; Self-hosted photo-management done right](https://lychee.electerious.com/) - Electerious
+2. [Web Developer and Designer | Electerious](https://electerious.com/) - Electerious
+3. [electerious/Lychee: A great looking and easy-to-use photo-management-system you can run on your server, to manage and share photos.](https://github.com/electerious/Lychee/) - GitHub
+4. [How to Install Lychee 3.1 Photo Album on an Ubuntu 16.04 LAMP VPS - Vultr.com](https://www.vultr.com/docs/how-to-install-lychee-3-1-photo-album-on-an-ubuntu-16-04-lamp-vps/) - Vultr
+5. [How to install Imagick for PHP 7 in Ubuntu 16.04  | Our Code World](https://ourcodeworld.com/articles/read/645/how-to-install-imagick-for-php-7-in-ubuntu-16-04/) - Our Code World
+6. [Lychee – A Great Looking Photo Management System for Linux](https://www.tecmint.com/lychee-photo-management-system-for-linux/) - TecMint
+7. [Lychee vs Piwigo - self-hosted photo backup and management](https://www.reddit.com/r/selfhosted/comments/b28ib2/lychee_vs_piwigo_selfhosted_photo_backup_and/) - Reddit
+8. [Piwigo VS Lychee](https://www.saashub.com/compare-piwigo-vs-lychee) - SaaSHub
