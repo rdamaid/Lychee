@@ -157,7 +157,7 @@ Penggunaan **Lychee** adalah seperti *software* manajemen foto yang biasa kita l
 ![Tombol Upload *upload*](Screenshot/ss%20(4).png)  
 5. Mengatur organisasi foto dengan penamaan pada album </br>
 ![Tombol Upload *upload*](Screenshot/ss%20(5).png)  
-6. *Logout* dengan mengklik tombol `log out` di pojok kiri atas </br>  
+6. *Logout* dengan mengklik tombol `Sign Out` di pojok kiri atas </br>  
 ![Tombol Upload *upload*](Screenshot/ss%20(6).png)  
     
 
