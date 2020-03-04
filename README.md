@@ -70,11 +70,6 @@
     $ cd /var/www/html/Lychee
     $ chmod -R 750 uploads/ data/
     ```
-
-5. Ubah otorisasi kepemilikan ke user www-data (webserver)
-    ```
-    $ sudo chown -R www-data:www-data /var/www/html/prestashop
-    ```
     
 6. Restart kembali Apache web server.
     ```
