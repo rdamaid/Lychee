@@ -142,17 +142,39 @@ Jika kalian masih merasa kesulitan dalam meng-install **Lychee**, terdapat cara 
 [`^ kembali ke atas ^`](#)
 
 Penggunaan **Lychee** adalah seperti *software* manajemen foto yang biasa kita lakukan di *smartphone*, dan bahkan dapat digunakan dengan lebih mudah, intuitif, dan responsif. Berikut beberapa fitur dasar yang dapat dilakukan:
-1. *Log in* dengan meng-klik tombol `log in` di pojok kiri atas, lalu masukkan *username* dan *password* anda
+
+1. *Log in* dengan meng-klik tombol `log in` di pojok kiri atas, lalu masukkan *username* dan *password* anda </br>
+![Log In](Screenshot/lycheeLogin.jpg) <br/>
+
 2. *Upload* foto dengan tombol '+' yang ada di pojok kanan atas, pilih "*Upload Photo*", lalu pilih foto mana yang akan di-*upload* (bisa lebih dari satu) </br>
-![Tombol Upload *upload*](Screenshot/ss%20(1).png) </br>  
-![Tombol Upload *upload*](Screenshot/ss%20(2).png) </br>   
-3. Melihat detail foto dengan cara meng-klik foto yang dimaksud, lalu klik simbol `i` yang ada di kanan atas
-![Tombol Upload *upload*](Screenshot/ss%20(3).png) </br>  
-4. Melihat photo dengan mode Full Resolusi </br>
-![Tombol Upload *upload*](Screenshot/ss%20(4).png)  
-5. Mengatur organisasi foto dengan penamaan pada album </br>
-![Tombol Upload *upload*](Screenshot/ss%20(5).png)  
-6. *Logout* dengan mengklik tombol `Sign Out` di pojok kiri atas </br>  
+![Tombol Upload *upload*](Screenshot/ss%20(1).png) 
+![Tombol Upload *upload*](Screenshot/ss%20(2).png) <br/>   
+
+3. Melihat detail foto dengan cara meng-klik foto yang dimaksud, lalu klik simbol `i` yang ada di kanan atas. Kelebihan dari fitur ini adalah *support* terhadap metadata yang dibawa oleh kamera.
+![Tombol Upload *upload*](Screenshot/ss%20(3).png) <br/>
+![Lihat metadata kamera](Screenshot/lycheeCam.jpg) <br/>
+
+4. Melihat photo dengan mode Full Resolusi <br/>
+![Tombol Upload *upload*](Screenshot/ss%20(4).png)  <br/>
+
+5. Mengatur organisasi foto dengan membuat album <br/>
+![Buat Album-1](Screenshot/lycheeCreateAlbum1.jpg)  <br/>
+![Buat Album-2](Screenshot/lycheeCreateAlbum2.jpg)  <br/>
+![Buat Album-3](Screenshot/lycheeCreateAlbum3.jpg)  <br/>
+
+7. Mengganti nama album dengan *right click* pada album yang akan diganti namanya <br/>
+![*Rename* Album-1](Screenshot/lycheeRenameAlbum.jpg)  <br/>
+![*Rename* Album-2](Screenshot/lycheeRenameAlbum2.jpg)  <br/>
+
+6. Memindahkan foto dengan tombol folder pada pojok kanan atas <br/>
+![Tombol Folder](Screenshot/lycheeMove.jpg)  <br/>
+![Pilih direktori](Screenshot/lycheeMove2.jpg)  <br/>
+
+7. Membagikan foto ke media sosial dengan tombol mata di pojok kanan atas <br/>
+![Tombol Mata](Screenshot/lycheeShare.jpg)  <br/>
+![Pilih Sosmed](Screenshot/lycheeShare2.jpg)  <br/>
+
+8. *Logout* dengan mengklik tombol `Sign Out` di pojok kiri atas 
 ![Tombol Upload *upload*](Screenshot/ss%20(6).png)  
     
 
