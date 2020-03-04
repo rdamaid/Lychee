@@ -149,7 +149,7 @@ Jika kalian masih merasa kesulitan dalam meng-install **Lychee**, terdapat cara 
 Penggunaan **Lychee** adalah seperti *software* manajemen foto yang biasa kita lakukan di *smartphone*, dan bahkan dapat digunakan dengan lebih mudah, intuitif, dan responsif. Berikut beberapa fitur dasar yang dapat dilakukan:
 1. *Log in* dengan meng-klik tombol `log in` di pojok kiri atas, lalu masukkan *username* dan *password* anda
 2. *Upload* foto dengan tombol '+' yang ada di pojok kanan atas, pilih "*Upload Photo*", lalu pilih foto mana yang akan di-*upload* (bisa lebih dari satu) </br>
-![Tombol Upload *upload*](Screenshot/ss (1).png)
+![Tombol Upload *upload*](Screenshot/ss%20(1).png)
 3. Melihat detail foto dengan cara meng-klik foto yang dimaksud, lalu klik simbol `i` yang ada di kanan atas
 4. 
     
